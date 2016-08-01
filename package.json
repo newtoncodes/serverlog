@@ -1,0 +1,27 @@
+{
+  "name": "serverlog",
+  "description": "",
+  "version": "1.0.0",
+  "main": "./index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/newtoncodes/serverlog"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/newtoncodes/serverlog"
+  },
+  "author": "Hristiyan Nikolov <hristiyan@newton.codes> (http://github.com/newtoncodes)",
+  "homepage": "https://github.com/newtoncodes/serverlog",
+  "files": [
+    "src",
+    "index.js"
+  ],
+  "keywords": [
+    "log",
+    "server"
+  ],
+  "dependencies": {
+    "colors": "^1.1.2"
+  }
+}
