@@ -184,6 +184,13 @@ class Logger {
         if (this[name] && (this[name] instanceof Stream)) delete this[name];
     }
 
+    /**
+     * @param {boolean} silent
+     */
+    set silent(silent) {
+        this.__default.silent = silent;
+    }
+
     /** @return {string} */
     get file() {
         return this.__default.file;

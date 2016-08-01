@@ -401,6 +401,13 @@ class Stream {
         this.writeConsole('\x1B[2J\x1B[0f');
     }
 
+    /**
+     * @param {boolean} silent
+     */
+    set silent(silent) {
+        this._silent = !!silent;
+    }
+
     /** @return {string} */
     get file() {
         return this._file;
