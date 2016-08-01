@@ -1,8 +1,8 @@
 'use strict';
 
-const Fs = require('fs'),
-    Util = require('util'),
-    Colors = require('colors');
+const Fs = require('fs');
+const Util = require('util');
+const Colors = require('colors');
 
 let _consoleDepth = 0;
 
