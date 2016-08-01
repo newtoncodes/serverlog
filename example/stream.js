@@ -48,7 +48,7 @@ function someFunction2() {
 }
 
 try {
-    someFunction();
+    someFunction2();
 } catch (e) {
     stream.error(e);
     stream.warn(e);

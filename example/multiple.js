@@ -64,7 +64,7 @@ function someFunction2() {
 }
 
 try {
-    someFunction();
+    someFunction2();
 } catch (e) {
     console.test1.error(e);
     console.test1.warn(e);
