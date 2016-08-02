@@ -1,8 +1,22 @@
-# Server file/console log utility
+# serverlog
 
-This logger is compatible with the known console api of chrome and firefox.
+Server file/console log utility.
+
+## Installation
+
+`npm install --save serverlog`
+
+## Description
+
+This logger is 99% compatible with the known console api of chrome and firefox.
 
 Supports timers, counters and groups. Also colors.
+
+**Twin brother for the browser - browserlog:**
+
+https://www.npmjs.com/package/browserlog
+
+https://github.com/newtoncodes/browserlog
 
 
 ### Default logger
@@ -14,11 +28,19 @@ const Logger = require('../index');
 // All options are optional!
 
 let console = new Logger({
-    file: __dirname + '/test.txt', // - save file path
-    style: ['blue'],               // - list of all styles
-    date: 'file',                  // - true means both file and console, false means none
-    time: true,                    // - true means both file and console, false means none
-    useStderr: false               // - use stderr to print errors in console
+    file: __dirname + '/test.txt', // Save file path
+    saveLogger: false,             // Save current log to the main logger too
+    style: ['blue'],               // List of all styles
+    silent: false,                 // Mute console output
+    fileDate: true,                // Display date in saved file
+    fileTime: true,                // Display time in saved file
+    colors: true,                  // Display colors and styles in console
+    colorsFull: false,             // If label is set, only it will be colorful
+                                   // To make the whole log colorful, set this to true
+    consoleDate: false,            // Display date in console output
+    consoleTime: true,             // Display time in console output
+    consoleStderr: false,          // Use stderr instead of stdout to print errors in console
+    label: ''                      // Label to be displayed next to each message
 });
 
 console.log('Test.');
@@ -33,13 +55,15 @@ const Logger = require('../index');
 
 let console = new Logger({
     file: __dirname + '/test.txt',
-    useStderr: false
+    label: 'APP'
+    consoleStderr: false
 });
 
 console.add('stream1', {
     file: __dirname + '/test1.txt',
     style: ['blue'],
-    useStderr: false
+    label: 'STREAM 1',
+    consoleStderr: false
 });
 
 console.log('Test default.');
@@ -56,19 +80,21 @@ const Stream = Logger.Stream;
 
 let logger = new Logger({
     file: __dirname + '/test.txt',
-    useStderr: false
+    consoleStderr: false
 });
 
 logger.test1 = new Stream({
     file: __dirname + '/test1.txt',
     style: ['blue'],
-    useStderr: false
+    consoleStderr: false,
+    label: 'TEST 2'
 });
 
 logger.test2 = new Stream({
     file: __dirname + '/test2.txt',
     style: ['green'],
-    useStderr: false
+    consoleStderr: false,
+    label: 'TEST 2'
 });
 
 module.exports = logger;
@@ -77,11 +103,12 @@ module.exports = logger;
 const console = require('./LocalLogger.js');
 
 console.log('Test default.');
-console.stream1.log('Test stream.');
+console.test1.log('Test stream 1.');
+console.test2.log('Test stream 2.');
 ~~~
 
 ### Examples
-```js
+```javascript
 console.assert(false, 'Test assert #1');
 
 console.write('Test write on single line', '... ');

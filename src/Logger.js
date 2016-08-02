@@ -13,7 +13,10 @@ class Logger {
      * @param {boolean} [options.time]
      */
     constructor(options = {}) {
-        this.__default = new Stream(options);
+        options = options || {};
+        options['saveLogger'] = false;
+
+        this.__default = new Stream(this, options);
     }
 
     /**
@@ -174,7 +177,7 @@ class Logger {
      * @param {boolean} [options.useStderr]
      */
     add(name, options) {
-        this[name] = new Stream(options);
+        this[name] = new Stream(this, options);
     }
 
     /**
@@ -185,10 +188,115 @@ class Logger {
     }
 
     /**
+     *
+     */
+    muteAll() {
+        Object.keys(this).forEach(key => {
+            if (this[key] instanceof Stream) this[key].silent = true;
+        })
+    }
+
+    /**
+     *
+     */
+    unmuteAll() {
+        Object.keys(this).forEach(key => {
+            if (this[key] instanceof Stream) this[key].silent = false;
+        })
+    }
+
+    /**
+     *
+     */
+    __addLog() {
+        this.__default.__addLog.apply(this.__default, arguments);
+    }
+
+    /**
+     * @param {Array.<string>|string} style
+     */
+    set style(style) {
+        this.__default.style = style;
+    }
+
+    /**
      * @param {boolean} silent
      */
     set silent(silent) {
         this.__default.silent = silent;
+    }
+
+    /**
+     * @param {boolean} save
+     */
+    set save(save) {
+        this.__default.save = save;
+    }
+
+    /**
+     * @param {boolean} date
+     */
+    set fileDate(date) {
+        this.__default.fileDate = date;
+    }
+
+    /**
+     * @param {boolean} time
+     */
+    set fileTime(time) {
+        this.__default.fileTime = time;
+    }
+
+    /**
+     * @param {boolean} colors
+     */
+    set colors(colors) {
+        this.__default.colors = colors;
+    }
+
+    /**
+     * @param {boolean} colorsFull
+     */
+    set colorsFull(colorsFull) {
+        this.__default.colorsFull = colorsFull;
+    }
+
+    /**
+     * @param {boolean} consoleDate
+     */
+    set consoleDate(consoleDate) {
+        this.__default.consoleDate = consoleDate;
+    }
+
+    /**
+     * @param {boolean} consoleTime
+     */
+    set consoleTime(consoleTime) {
+        this.__default.consoleTime = consoleTime;
+    }
+
+    /**
+     * @param {boolean} consoleStderr
+     */
+    set consoleStderr(consoleStderr) {
+        this.__default.consoleStderr = consoleStderr;
+    }
+
+    /**
+     * @param {string} label
+     */
+    set label(label) {
+        this.__default.label = label;
+    }
+
+    /** @return {Array.<string>|string} */
+    get style() {
+        return this.__default.style;
+    }
+
+    /** @return {boolean} */
+    get silent() {
+        return this.__default.silent;
     }
 
     /** @return {string} */
@@ -197,13 +305,50 @@ class Logger {
     }
 
     /** @return {boolean} */
-    get silent() {
-        return this.__default.silent;
+    get fileDate() {
+        return this.__default.fileDate;
     }
 
-    /** @return {Array.<string>} */
-    get style() {
-        return this.__default.style;
+    /** @return {boolean} */
+    get fileTime() {
+        return this.__default.fileTime;
+    }
+
+    /** @return {boolean} */
+    get colors() {
+        return this.__default.colors;
+    }
+
+    /** @return {boolean} */
+    get colorsFull() {
+        return this.__default.colorsFull;
+    }
+
+    /** @return {boolean} */
+    get consoleDate() {
+        return this.__default.consoleDate;
+    }
+
+    /** @return {boolean} */
+    get consoleTime() {
+        return this.__default.consoleTime;
+    }
+
+    /** @return {boolean} */
+    get consoleStderr() {
+        return this.__default.consoleStderr;
+    }
+
+    /** @return {string} */
+    get label() {
+        return this.__default.label;
+    }
+
+    /**
+     * @returns {{assert: function, clear, log: function, info: function, debug: function, dir: function, table: function, error: function, warn: function, trace: function, group: function, groupCollapsed: function, groupEnd: function, count: function, time: function, timeEnd: function, profile: function, profileEnd: function, timeStamp: function}}
+     */
+    get original() {
+        return this.__default.original;
     }
 }
 

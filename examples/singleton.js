@@ -1,30 +1,31 @@
 'use strict';
 
 const Logger = require('../index');
+const Stream = Logger.Stream;
 
-let console = new Logger({
+let logger = new Logger({
     file: __dirname + '/test.txt',
-    //style: ['blue'],
-    // date: 'file',
-    // time: true,
-    useStderr: false
+    consoleStderr: false
 });
 
-console.add('test1', {
+logger.test1 = new Stream({
     file: __dirname + '/test1.txt',
     style: ['blue'],
-    // date: 'file',
-    // time: true,
-    useStderr: false
+    consoleStderr: false
 });
 
-console.add('test2', {
+logger.test2 = new Stream({
     file: __dirname + '/test2.txt',
     style: ['green'],
-    // date: 'file',
-    // time: true,
-    useStderr: false
+    consoleStderr: false
 });
+
+module.exports = logger;
+
+
+// Now import this from another file
+
+const console = module.exports; // Replaces require
 
 console.test1.assert(false, 'Test assert #1');
 
@@ -32,6 +33,7 @@ console.test2.write('Test write on single line', '... ');
 console.test2.write('D');
 console.test2.write('O');
 console.test1.write('N');
+console.test1.write('E\n');
 console.test2.write('E\n');
 
 console.test2.log('MULTI\nLINE\nTEXT\nLOG');

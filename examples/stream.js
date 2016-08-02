@@ -4,10 +4,8 @@ const Stream = require('../index').Stream;
 
 let stream = new Stream({
     file: __dirname + '/test.txt',
-    //style: ['blue'],
-    time: false,
-    // date: 'file',
-    // time: true,
+    consoleTime: false,
+    consoleStderr: false
 });
 
 stream.assert(false, 'Test assert #1');

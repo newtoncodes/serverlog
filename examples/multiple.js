@@ -1,38 +1,30 @@
 'use strict';
 
 const Logger = require('../index');
-const Stream = Logger.Stream;
 
-let logger = new Logger({
+let console = new Logger({
     file: __dirname + '/test.txt',
-    //style: ['blue'],
-    // date: 'file',
-    // time: true,
-    useStderr: false
+    colors: false,
+    consoleStderr: false
 });
 
-logger.test1 = new Stream({
+console.add('test1', {
     file: __dirname + '/test1.txt',
     style: ['blue'],
-    // date: 'file',
-    // time: true,
-    useStderr: false
+    colors: true,
+    saveLogger: true,
+    consoleStderr: false,
+    label: '1'
 });
 
-logger.test2 = new Stream({
+console.add('test2', {
     file: __dirname + '/test2.txt',
     style: ['green'],
-    // date: 'file',
-    // time: true,
-    useStderr: false
+    colors: true,
+    saveLogger: true,
+    consoleStderr: false,
+    label: '2'
 });
-
-module.exports = logger;
-
-
-// Now import this from another file
-
-const console = module.exports; // Replaces require
 
 console.test1.assert(false, 'Test assert #1');
 
@@ -40,11 +32,13 @@ console.test2.write('Test write on single line', '... ');
 console.test2.write('D');
 console.test2.write('O');
 console.test1.write('N');
+console.test1.write('E\n');
 console.test2.write('E\n');
 
 console.test2.log('MULTI\nLINE\nTEXT\nLOG');
 
 console.test2.group('Group test #1');
+console.test2.log('Normal log behavior:', 2, {test: 1});
 console.test1.log('Normal log behavior:', 2, {test: 1});
 console.test2.table({test: 1}, 'Some compatibility fns.');
 console.test1.debug({test: 1}, 'Some alias fns.');
