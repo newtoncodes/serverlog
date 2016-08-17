@@ -227,6 +227,13 @@ class Logger {
     }
 
     /**
+     * @param {string} file
+     */
+    set file(file) {
+        this.__default.file = file;
+    }
+
+    /**
      * @param {boolean} save
      */
     set save(save) {

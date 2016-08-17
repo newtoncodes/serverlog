@@ -1,7 +1,7 @@
 {
   "name": "serverlog",
   "description": "Log utility for the server",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "main": "./index.js",
   "repository": {
     "type": "git",

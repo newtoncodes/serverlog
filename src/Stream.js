@@ -501,7 +501,7 @@ class Stream {
      * @param {string} file
      */
     set file(file) {
-        return this._file;
+        return this._file = file;
     }
 
     /**
